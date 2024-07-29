@@ -20,14 +20,6 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
 
-        .EA7164 {
-            background: #EA7164;
-        }
-
-        .D98979 {
-            background: #D98979;
-        }
-
         .upload-product-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -91,14 +83,6 @@
             color: white;
             border-radius: 5px;
             z-index: 1;
-
-            h4 {
-                font-size: 22px;
-            }
-
-            p {
-                font-size: 16px;
-            }
         }
 
         @media screen and (max-width: 991px) {
@@ -180,6 +164,7 @@
         }
 
         .right-container .intro-container {
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -187,31 +172,10 @@
             gap: 0;
             padding: 0 10px 15px 10px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-            .rating {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-                align-items: center;
-                gap: 3px;
-
-                p {
-                    font-size: 14px;
-                    color: gray;
-                    margin-left: 20px;
-                }
-            }
-
-            h1 {
-                font-size: 48px;
-            }
-
-            p {
-                padding: 25px 0;
-            }
         }
 
         .right-container .color-selector {
+            width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -219,52 +183,101 @@
             gap: 10px;
             padding: 15px 10px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
 
-            .color {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-start;
-                align-items: center;
-                gap: 5px;
+        .right-container .color-selector .color {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
 
-                h5 {
-                    font-size: 17px;
-                    font-weight: 500;
-                }
-            }
+        .right-container .color-selector .color h5 {
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .right-container .color-selector .color .shape {
+            width: 30px;
+            height: 20px;
+            border-radius: 5%;
+            outline: 3px solid rgba(255, 255, 255, 1);
+            outline-offset: -3px;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+            transform: scale(1.1);
+        }
+
+        .right-container .color-selector .color p {
+            font-size: 16px;
+        }
+
+        .right-container .color-selector .color a {
+            display: block;
+            border-radius: 50px;
+            padding: 5px 10px;
+            margin-left: 10px;
+            text-decoration: none;
+            color: gray;
+            font-size: 14px;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid rgb(189, 189, 189);
+            cursor: pointer;
+        }
+
+        .right-container .color-selector .color a:visited {
+            color: gray;
+        }
+
+        .right-container .color-selector .color a:hover {
+            color: black;
+            border: 1px solid black;
         }
 
         .right-container .color-selector .color-palette {
+            width: 100%;
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             align-items: center;
+            flex-wrap: wrap;
             gap: 10px;
-
-            .shape {
-                width: 30px;
-                height: 20px;
-                border-radius: 5%;
-                cursor: pointer;
-                outline: 3px solid rgba(255, 255, 255, 1);
-                outline-offset: -3px;
-                transition: all 0.3s ease-in-out;
-                box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-
-                &:hover {
-                    transform: scale(1.1);
-                }
-            }
         }
 
-        .right-container  .size-selector {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 15px 10px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        .right-container .color-selector .color-palette .shape {
+            width: 30px;
+            height: 20px;
+            border-radius: 5%;
+            cursor: pointer;
+            outline: 3px solid rgba(255, 255, 255, 1);
+            outline-offset: -3px;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .right-container .color-selector .color-palette .shape:hover {
+            transform: scale(1.1);
+        }
+
+        .popup {
+            position: absolute;
+            background: white;
+            border: 1px solid lightgray;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 10;
+            flex-wrap: wrap;
+            gap: 5px;
+            width: 200px;
+        }
+
+        .popup .shape {
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
         }
 
         .error-popup {
@@ -337,21 +350,20 @@
             <div class="color-selector">
                 <div class="color">
                     <h5>Color: </h5>
-                    <div class="color-palette">
-                        <div class="shape" style="background-color: #EA7164;"></div>
-                    </div>
+                    <div class="shape" id="selected-color" style="background: #F4F4F4;"></div>
+                    <p>Selected Color</p>
+                    <a id="show-palette">Show color palette</a>
+                </div>
+                <div class="color-palette" id="initial-palette">
+                </div>
+                <div class="popup" id="popup-palette">
+                    <!-- Popup colors will be generated by JS -->
                 </div>
             </div>
         </div>
     </div>
     <div id="error-popup" class="error-popup"></div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const fileInput = document.getElementById("file-input");
-            const largeImg = document.getElementById("large-img");
-            const smallImgBox = document.querySelector(".small-img-box");
-            const errorPopup = document.getElementById("error-popup");
-
             const colorPalette = [
                 "#EA7164",
                 "#D98979",
@@ -380,65 +392,79 @@
                 "#BE787B",
                 "#F4F4F4",
                 "#323232"
-            ]
+            ];
 
-            const smallImgs = [];
+            document.addEventListener('DOMContentLoaded', () => {
+                const initialPalette = document.getElementById('initial-palette');
+                const popupPalette = document.getElementById('popup-palette');
+                const selectedColorDiv = document.getElementById('selected-color');
+                const largeImage = document.getElementById('large-img');
+                const smallImages = document.querySelectorAll('.small-img');
 
-            fileInput.addEventListener("change", function(event) {
-                const files = Array.from(event.target.files);
-                const validExtensions = ["image/png", "image/jpeg", "image/jpg", "application/pdf", "image/svg+xml", "image/vnd.adobe.photoshop", "application/postscript", "application/illustrator"];
-                const maxFileSize = 5 * 1024 * 1024;
-                const existingFileNames = smallImgs.map(img => img.name);
-
-                files.forEach(file => {
-                    if (existingFileNames.includes(file.name)) {
-                        showError("File already exists. Please select a different file.");
-                    } else if (!validExtensions.includes(file.type) || file.size > maxFileSize) {
-                        showError("Invalid file type or size. Please select a valid file.");
-                    } else {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const imgElement = document.createElement("img");
-                            imgElement.src = e.target.result;
-                            imgElement.alt = file.name;
-                            imgElement.style.width = "100px";
-                            imgElement.style.height = "100px";
-                            smallImgBox.insertBefore(imgElement, smallImgBox.firstChild);
-                            smallImgs.unshift(file);
-
-                            largeImg.src = e.target.result;
-                        };
-                        reader.readAsDataURL(file);
-                    }
+                // Create initial 4 colors in the palette
+                const initialColors = colorPalette.slice(0, 4);
+                initialColors.forEach(color => {
+                    const colorDiv = document.createElement('div');
+                    colorDiv.className = 'shape';
+                    colorDiv.style.background = color;
+                    colorDiv.addEventListener('click', () => {
+                        selectedColorDiv.style.background = color;
+                        changeShirtColor(color);
+                    });
+                    initialPalette.appendChild(colorDiv);
                 });
 
-                adjustSmallImgBox();
+                // Create popup palette
+                colorPalette.forEach(color => {
+                    const colorDiv = document.createElement('div');
+                    colorDiv.className = 'shape';
+                    colorDiv.style.background = color;
+                    colorDiv.addEventListener('click', () => {
+                        selectedColorDiv.style.background = color;
+                        changeShirtColor(color);
+                        popupPalette.style.display = 'none';
+                    });
+                    popupPalette.appendChild(colorDiv);
+                });
+
+                // Show popup palette
+                document.getElementById('show-palette').addEventListener('click', () => {
+                    const paletteDisplay = popupPalette.style.display;
+                    popupPalette.style.display = paletteDisplay === 'flex' ? 'none' : 'flex';
+                });
+
+                // Function to change the color of the shirt
+                const changeShirtColor = (color) => {
+                    const imgSrc = '/mnt/data/main-img.png';
+                    const img = new Image();
+                    img.src = imgSrc;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+
+                        // Change the shirt color using a multiply blend mode
+                        ctx.globalCompositeOperation = 'multiply';
+                        ctx.fillStyle = color;
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.globalCompositeOperation = 'destination-in';
+                        ctx.drawImage(img, 0, 0);
+
+                        // Update the large image
+                        largeImage.src = canvas.toDataURL();
+
+                        // Update the small images
+                        smallImages.forEach(smallImg => {
+                            smallImg.src = canvas.toDataURL();
+                        });
+                    };
+                };
+
+                // Set initial selected color
+                changeShirtColor('#F4F4F4');
             });
-
-            function showError(message) {
-                errorPopup.textContent = message;
-                errorPopup.classList.add("show");
-                setTimeout(() => {
-                    errorPopup.classList.remove("show");
-                }, 3000);
-            }
-
-            function adjustSmallImgBox() {
-                const images = smallImgBox.querySelectorAll("img");
-
-                if (images.length > 3) {
-                    smallImgBox.classList.add("scrollable");
-                    images.forEach(img => {
-                        img.style.width = "calc(99% / 3)";
-                    });
-                } else {
-                    smallImgBox.classList.remove("scrollable");
-                    images.forEach(img => {
-                        img.style.width = `${100 / images.length}%`;
-                    });
-                }
-            }
-        });
     </script>
 </body>
 </html>
